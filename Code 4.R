@@ -46,6 +46,8 @@ inverts = invertebrates %>%
 inverts = inverts %>% 
   mutate(across(c(site, common_name), factor)) 
 
+summary(inverts)
+
 # Question: What do you think about month? Should we also treat it as a factor?
 
 # Another application is to create a new variable in the data. For example,
@@ -53,7 +55,7 @@ inverts = inverts %>%
 
 inverts = inverts %>% 
   mutate(prop2016 = x2016/(x2016 + x2017 + x2018))
-
+summary(inverts)
 
 # select()
 
@@ -125,7 +127,8 @@ inverts_unite <- inverts_long %>%
 # again we created in "inverts_unite":
 
 inverts_sep <- inverts_unite %>% 
-  separate(site_year, into = c("my_site", "my_year"))
+  separate(site_year, into = c("my_site", "my_year")) %>% 
+  mutate(year = substr(my_year, 2, 5))
 
 # Final comment: You might need to be specific about WHICH separate or select
 # function you mean: dplyr::select, tidyr::separate
